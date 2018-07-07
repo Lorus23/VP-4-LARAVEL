@@ -5,9 +5,9 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link rel="stylesheet" href="css/libs.min.css">
-    <link rel="stylesheet" href="css/main.css">
-    <link rel="stylesheet" href="css/media.css">
+    <link rel="stylesheet" href="/css/libs.min.css">
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/media.css">
 </head>
 <body>
 <div class="main-wrapper">
@@ -36,8 +36,18 @@
                                 class="payment-basket__status__basket-value-descr">товаров</span></div>
                 </div>
             </div>
-            <div class="authorization-block"><a href="#" class="authorization-block__link">Регистрация</a><a href="#"
-                                                                                                             class="authorization-block__link">Войти</a>
+            <div class="authorization-block">
+                @if (Route::has('login'))
+                    <div class="top-right links">
+                        @auth
+                            <a href="{{ url('/home') }}">Home</a>
+                            @else
+                                <a href="{{ route('login') }} " class="authorization-block__link">Войти</a>
+                                <a href="{{ route('register') }}" class="authorization-block__link">Регистрация</a>
+                                @endauth
+                    </div>
+                @endif
+
             </div>
         </div>
     </header>
@@ -61,7 +71,7 @@
                 <div class="sidebar-item__content">
                     <div class="sidebar-news">
                         <div class="sidebar-news__item">
-                            <div class="sidebar-news__item__preview-news"><img src="img/cover/game-2.jpg"
+                            <div class="sidebar-news__item__preview-news"><img src="/img/cover/game-2.jpg"
                                                                                alt="image-new"
                                                                                class="sidebar-new__item__preview-new__image">
                             </div>
@@ -70,7 +80,7 @@
                                     новых играх в режиме VR</a></div>
                         </div>
                         <div class="sidebar-news__item">
-                            <div class="sidebar-news__item__preview-news"><img src="img/cover/game-1.jpg"
+                            <div class="sidebar-news__item__preview-news"><img src="/img/cover/game-1.jpg"
                                                                                alt="image-new"
                                                                                class="sidebar-new__item__preview-new__image">
                             </div>
@@ -79,7 +89,7 @@
                                     новых играх в режиме VR</a></div>
                         </div>
                         <div class="sidebar-news__item">
-                            <div class="sidebar-news__item__preview-news"><img src="img/cover/game-4.jpg"
+                            <div class="sidebar-news__item__preview-news"><img src="/img/cover/game-4.jpg"
                                                                                alt="image-new"
                                                                                class="sidebar-new__item__preview-new__image">
                             </div>
