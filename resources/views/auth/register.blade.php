@@ -61,6 +61,12 @@
                             </div>
                         </div>
 
+                        <div class="col-md-6 offset-md-4">
+                            <input type="checkbox" id="admin" name="admin"
+                                   value="admin"/>
+                            <label for="admin">Администратор</label>
+                        </div>
+
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary">
