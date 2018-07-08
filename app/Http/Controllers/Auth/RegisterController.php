@@ -68,7 +68,7 @@ class RegisterController extends Controller
         $data->name = $arr['name'];
         $data->email = $arr['email'];
         $data->password = Hash::make($arr['password']);
-        $data->role = $arr['admin'];
+//        if (isset($arr['admin'])){$data->role = $arr['admin'];}
         // Если запись добавлена
         return $data->save();
 

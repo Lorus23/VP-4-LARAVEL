@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Product;
 use App\Category;
 use Illuminate\Http\Request;
@@ -14,7 +15,7 @@ class ProductController extends Controller
         $categories = Category::all();
         $data['categories'] = $categories;
 
-        return view('index',$data);
+        return view('index', $data);
 
     }
 
@@ -29,20 +30,28 @@ class ProductController extends Controller
         $data['product'] = Product::find($id);
         $categories = Category::all();
         $data['categories'] = $categories;
-        return view('1product',$data);
+        return view('1product', $data);
     }
+
     public function store($product)
     {
-        $this->validate($product,[
-           'name'=>'required',
-           'category_id'=>'required',
-           'price'=>'required',
-           'description'=>'required'
+        $this->validate($product, [
+            'name' => 'required',
+            'category_id' => 'required',
+            'price' => 'required',
+            'description' => 'required'
         ]);
-
         return view('createProduct');
 //        return redirect()->route('index');
+    }
 
+    public function categoryProducts($id)
+    {
+        $products = Product::where('id',$id)->get();
+        $data['products'] = $products;
+        $categories = Category::all();
+        $data['categories'] = $categories;
 
+        return view('category', $data);
     }
 }
