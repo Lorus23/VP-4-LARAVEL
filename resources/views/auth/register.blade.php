@@ -1,4 +1,4 @@
-@extends('layouts.authApp')
+@extends('admin.layouts.app')
 
 @section('content')
 <div class="container">
@@ -62,8 +62,8 @@
                         </div>
 
                         <div class="col-md-6 offset-md-4">
-                            <input type="checkbox" id="admin" name="admin"
-                                   value="admin"/>
+                            <input type="hidden" name="role" value="user">
+                            <input type="checkbox" name="role" value="admin"/>
                             <label for="admin">Администратор</label>
                         </div>
 

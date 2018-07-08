@@ -5,24 +5,19 @@ namespace App\Http\Controllers;
 use App\Product;
 use App\Category;
 use Illuminate\Http\Request;
+use App\Http\Usage;
 
 class ProductController extends Controller
 {
+    const PRODUCTS_LIMIT_INDEX_PAGE = 6;
+
     public function index()
     {
-        $products = Product::all();
+        $data = Usage::index();
+        $products = Product::latest()->limit(self::PRODUCTS_LIMIT_INDEX_PAGE)->get();
         $data['products'] = $products;
-        $categories = Category::all();
-        $data['categories'] = $categories;
+        return view('front.index', $data);
 
-        return view('index', $data);
-
-    }
-
-    public function createProduct()
-    {
-
-        return view('createProduct');
     }
 
     public function viewProduct($id)
@@ -30,28 +25,73 @@ class ProductController extends Controller
         $data['product'] = Product::find($id);
         $categories = Category::all();
         $data['categories'] = $categories;
-        return view('1product', $data);
-    }
-
-    public function store($product)
-    {
-        $this->validate($product, [
-            'name' => 'required',
-            'category_id' => 'required',
-            'price' => 'required',
-            'description' => 'required'
-        ]);
-        return view('createProduct');
-//        return redirect()->route('index');
+        $randomProduct = new Product;
+        $random = $randomProduct->inRandomOrder()->first();
+        $data['random'] = $random;
+        return view('front.oneProduct', $data);
     }
 
     public function categoryProducts($id)
     {
-        $products = Product::where('id',$id)->get();
+        $data = Usage::index();
+        $products = Product::where('category_id', $id)->get();
         $data['products'] = $products;
-        $categories = Category::all();
-        $data['categories'] = $categories;
-
-        return view('category', $data);
+        $data['cat'] = Category::find($id);
+        return view('front.category', $data);
     }
+
+    public function adminProductList()
+    {
+        $data['products'] = Product::all();
+        return view('admin.product.list',$data);
+    }
+
+    public function create()
+    {
+        return view('admin.product.create');
+    }
+
+    public function store(Request $request, Product $productModel)
+    {
+        $request->validate([
+            'name' => 'required',
+            'category_id' => 'required|integer|min:1',
+            'price' => 'required',
+            'description' => 'required'
+        ]);
+
+        $productModel->create($request->all());
+        return redirect()->route('home');
+    }
+
+    public function edit($id)
+    {
+        $data['product'] = Product::findOrFail($id);
+
+        return view('admin.product.edit', $data);
+    }
+
+    public function update($id, Request $request)
+    {
+        $request->validate([
+            'name' => 'required',
+            'category_id' => 'required|integer|min:1',
+            'price' => 'required|integer',
+            'description' => 'required'
+        ]);
+        Product::find($id)->update($request->all());
+        return redirect()->route('home');
+    }
+
+    public function delete($id)
+    {
+        Product::destroy($id);
+        return redirect()->route('home');
+    }
+
+    public function orderList()
+    {
+
+    }
+
 }
