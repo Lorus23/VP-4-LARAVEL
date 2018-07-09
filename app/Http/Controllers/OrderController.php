@@ -45,8 +45,8 @@ class OrderController extends Controller
             $adminName = $admin->name;
 
             $transport = (new Swift_SmtpTransport('smtp.mail.ru', '587', 'tls'))
-                ->setUsername('sayat020@mail.ru')
-                ->setPassword('Qwerty-123');
+                ->setUsername('email')
+                ->setPassword('password');
             $mailer = new Swift_Mailer($transport);
             $message = (new Swift_Message('Новый заказ'))
                 ->setFrom(['sayat020@mail.ru' => 'name'])
