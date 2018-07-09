@@ -6,6 +6,7 @@ use App\Product;
 use App\Category;
 use Illuminate\Http\Request;
 use App\Http\Usage;
+use App\Order;
 
 class ProductController extends Controller
 {
@@ -13,6 +14,7 @@ class ProductController extends Controller
 
     public function index()
     {
+
         $data = Usage::index();
         $products = Product::latest()->limit(self::PRODUCTS_LIMIT_INDEX_PAGE)->get();
         $data['products'] = $products;
@@ -22,12 +24,10 @@ class ProductController extends Controller
 
     public function viewProduct($id)
     {
+        $data = Usage::index();
         $data['product'] = Product::find($id);
-        $categories = Category::all();
-        $data['categories'] = $categories;
-        $randomProduct = new Product;
-        $random = $randomProduct->inRandomOrder()->first();
-        $data['random'] = $random;
+
+
         return view('front.oneProduct', $data);
     }
 
@@ -89,9 +89,6 @@ class ProductController extends Controller
         return redirect()->route('home');
     }
 
-    public function orderList()
-    {
 
-    }
 
 }

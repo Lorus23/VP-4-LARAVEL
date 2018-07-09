@@ -7,8 +7,18 @@ Route::get('/product/createProduct','ProductController@createProduct');
 Route::post('/product/store','ProductController@store')->name('product.store');
 
 Auth::routes();
+
+Route::get('/order', 'OrderController@index')->name('user.orderList');
+Route::get('/сheckout', 'OrderController@orderCheckout')->name('orderCheckout');
+Route::get('/cart', 'CartController@index')->name('cartList');
+Route::get('/cart/add/{id}', 'CartController@actionAdd')->name('cart');
+Route::get('/cart/ajaxAdd/{id}', 'CartController@actionAdd')->name('cart.ajaxAdd');
+
 Route::group(['middleware' => ['auth', 'adminOnly']], function () {
     Route::get('/home', 'HomeController@index')->name('home');
+    Route::get('/orders', 'OrderController@orderList')->name('orderList');
+    Route::post('/home/update/{id}', 'HomeController@emailUpdate')->name('emailUpdate');
+
 });
 
 Route::group(['prefix' => 'category'], function () {
@@ -21,7 +31,6 @@ Route::group(['prefix' => 'category'], function () {
 });
 
 Route::group(['prefix' => 'product', 'middleware' => ['auth', 'adminOnly']], function () {
-    Route::get('/orderList', 'ProductController@orderList')->name('orderList');
     Route::get('/adminProductList', 'ProductController@adminProductList')->name('product.adminProductList');
     Route::get('/create', 'ProductController@create')->name('product.create');
     Route::get('/edit/{id}', 'ProductController@edit')->name('product.edit');

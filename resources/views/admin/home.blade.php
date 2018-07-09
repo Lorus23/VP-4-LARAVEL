@@ -19,7 +19,19 @@
                         <hr>
                         <div><a href="{{route('orderList')}}" class="btn-default">Просмотр заказов</a></div>
                     </div>
+
+                    <div class="card-header">
+                        <form action="{{route('emailUpdate',['id' => Auth::user()->id])}}" method="post">
+                            {{csrf_field()}}
+                        <label for="email" class="col-sm-5 col-form-label text-md-right">{{ __('Ваш E-Mail') }}</label>
+                        <input type="text" placeholder="{{ Auth::user()->email }}" name="email">
+                        <label for="">
+                            <button type="submit">Изменить</button>
+                        </label>
+                        </form>
+                    </div>
                 </div>
+
             </div>
         </div>
     </div>

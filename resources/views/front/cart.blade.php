@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('front.layouts.app')
 @section('content')
 
     <div class="content-middle">
@@ -16,33 +16,27 @@
             </div>
         </div>
         <div class="cart-product-list">
+
+            @foreach ($products as $product)
             <div class="cart-product-list__item">
-                <div class="cart-product__item__product-photo"><img src="img/cover/game-1.jpg" class="cart-product__item__product-photo__image"></div>
+                <div class="cart-product__item__product-photo"><img src="{{$product->image}}" class="cart-product__item__product-photo__image"></div>
                 <div class="cart-product__item__product-name">
-                    <div class="cart-product__item__product-name__content"><a href="#">The Witcher 3</a></div>
+                    <div class="cart-product__item__product-name__content"><a href="#">{{$product->name}}</a></div>
                 </div>
                 <div class="cart-product__item__cart-date">
                     <div class="cart-product__item__cart-date__content">14.12.2016</div>
                 </div>
-                <div class="cart-product__item__product-price"><span class="product-price__value">400 рублей</span></div>
+                <div class="cart-product__item__product-price"><span class="product-price__value">{{$product->price}} рублей</span></div>
             </div>
-            <div class="cart-product-list__item">
-                <div class="cart-product__item__product-photo"><img src="img/cover/game-2.jpg" class="cart-product__item__product-photo__image"></div>
-                <div class="cart-product__item__product-name">
-                    <div class="cart-product__item__product-name__content"><a href="#">OverWatch</a></div>
-                </div>
-                <div class="cart-product__item__cart-date">
-                    <div class="cart-product__item__cart-date__content">14.12.2016</div>
-                </div>
-                <div class="cart-product__item__product-price"><span class="product-price__value">400 рублей</span></div>
-            </div>
+            @endforeach
+
             <div class="cart-product-list__result-item">
                 <div class="cart-product-list__result-item__text">Итого</div>
-                <div class="cart-product-list__result-item__value">1000 рублей</div>
+                <div class="cart-product-list__result-item__value">{{$totalPrice}} рублей</div>
             </div>
         </div>
         <div class="content-footer__container">
-            <div class="btn-buy-wrap"><a href="#" class="btn-buy-wrap__btn-link">Перейти к оплате</a></div>
+            <div class="btn-buy-wrap"><a href="{{route('orderCheckout')}}" class="btn-buy-wrap__btn-link">Оформить заказ</a></div>
         </div>
     </div>
     <div class="content-bottom"></div>
