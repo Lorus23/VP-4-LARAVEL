@@ -62,7 +62,7 @@
                         </div>
 
                         <div class="col-md-6 offset-md-4">
-                            <input type="hidden" name="role" value="user">
+                            <input type="hidden" name="role" value="user"/>
                             <input type="checkbox" name="role" value="admin"/>
                             <label for="admin">Администратор</label>
                         </div>
