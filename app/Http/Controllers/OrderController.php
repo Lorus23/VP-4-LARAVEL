@@ -49,7 +49,7 @@ class OrderController extends Controller
                 ->setPassword('password');
             $mailer = new Swift_Mailer($transport);
             $message = (new Swift_Message('Новый заказ'))
-                ->setFrom(['sayat020@mail.ru' => 'name'])
+                ->setFrom(['email' => 'name'])
                 ->setTo([$adminEmail => $adminName])
                 ->setBody("Поступил новый заказ. Посмотрите свежие заказы в таблицу 'Заказы'");
             $mailer->send($message);
